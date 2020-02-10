@@ -1,0 +1,30 @@
+.todo {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-around;
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+
+  &__search {
+    border: 1px solid #000;
+    padding: 10px;
+    outline: none;
+  }
+
+  &__select {
+    width: 174px;
+    border-radius: unset;
+    background-color: transparent;
+    border: 1px solid #000;
+    outline: none;
+    cursor: pointer;
+  }
+
+  &__button {
+    background-color: transparent;
+    padding: 0 20px;
+    border: 1px solid #000;
+    outline: none;
+    cursor: pointer;
+  }
+}
