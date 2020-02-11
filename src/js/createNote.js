@@ -4,8 +4,6 @@ import { saveToLocal, saveLocalToArr } from "./local.js";
 export let collection = [];
 
 export const obj = {
-  // collection: [],
-
   pushtoCollection(obj) {
     collection.push(obj);
   },
