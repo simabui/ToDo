@@ -1,11 +1,11 @@
 import { refs } from "./index.js";
 import { saveToLocal, saveLocalToArr } from "./local.js";
 
-export let collection = [];
-
 export const obj = {
+  collection: [],
+
   pushtoCollection(obj) {
-    collection.push(obj);
+    this.collection.push(obj);
   },
 
   //create obj,push to arr and render
@@ -30,12 +30,12 @@ export const obj = {
 
   //remove button
   remove(id) {
-    collection = collection.filter(note => note.id !== id);
+    this.collection = this.collection.filter(note => note.id !== id);
     saveToLocal();
   },
   // add status to obj
   setStatus(el) {
-    const obj = collection.find(note => note.id === el);
+    const obj = this.collection.find(note => note.id === el);
     //change status in obj
     obj.status = "done";
     saveToLocal();
@@ -50,7 +50,7 @@ export const obj = {
 
   //filter by input
   filterInput(val) {
-    const newCollection = collection.filter(note => {
+    const newCollection = this.collection.filter(note => {
       if (note.title.includes(val)) {
         return note;
       }
@@ -61,7 +61,7 @@ export const obj = {
 
   //filter by status
   filterStatus(status) {
-    const newCollection = collection.filter(note => {
+    const newCollection = this.collection.filter(note => {
       if (status === "all") {
         return note;
       }
@@ -73,7 +73,7 @@ export const obj = {
 
   //filter by prio
   filterPrio(prio) {
-    const newCollection = collection.filter(note => {
+    const newCollection = this.collection.filter(note => {
       if (prio === "all") {
         return note;
       }

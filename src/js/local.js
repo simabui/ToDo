@@ -1,8 +1,8 @@
-import { collection, buildTemplate } from "./createNote.js";
+import { obj, buildTemplate } from "./createNote.js";
 
 export function saveToLocal() {
   try {
-    localStorage.setItem("collection", JSON.stringify(collection));
+    localStorage.setItem("collection", JSON.stringify(obj.collection));
   } catch (err) {
     console.error("Set state error: ", err);
   }
@@ -34,7 +34,7 @@ export function saveLocalToArr() {
   try {
     const ParsedCollection = JSON.parse(localStorage.getItem("collection"));
     if (ParsedCollection === null) return;
-    collection.push(...ParsedCollection);
+    obj.collection.push(...ParsedCollection);
   } catch (err) {
     console.error(err);
   }
