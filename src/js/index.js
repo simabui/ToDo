@@ -1,7 +1,6 @@
 "use strict";
 import "./../sass/styles.scss";
-import "./createNote.js";
-import { obj } from "./createNote.js";
+import { obj } from "./createNote";
 
 export const refs = {
   inputSearch: document.querySelector("#task-search"),
@@ -62,16 +61,21 @@ function handleCreate(e) {
 // set option
 function handleOptions(e) {
   const parent = e.target.closest(".note");
+  const dataType = e.target.dataset.type;
+  //show add options
+  if (e.target.nodeName === "SPAN") {
+    parent.querySelector(".note__additional").classList.toggle("note-open");
+  }
 
-  if (e.target.dataset.type === "done") {
+  if (dataType === "done") {
     changeStatus(parent);
   }
 
-  if (e.target.dataset.type === "delete") {
+  if (dataType === "delete") {
     deleteItem(parent);
   }
 
-  if (e.target.dataset.type === "edit") {
+  if (dataType === "edit") {
     handleOverlay(e);
     deleteItem(parent);
   }

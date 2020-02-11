@@ -1,4 +1,5 @@
-import { obj, buildTemplate } from "./createNote.js";
+import { buildTemplate } from "./template";
+import { obj } from "./createNote";
 
 export function saveToLocal() {
   try {

@@ -46,15 +46,10 @@
   }
 
   button {
-    font-family: $montserrat-font;
-    font-weight: 400;
-    background-color: transparent;
-    border: 1px solid;
     border-radius: 5px;
     padding: 10px;
     margin-top: 10px;
     cursor: pointer;
-    outline: none;
   }
 
   &__save {
