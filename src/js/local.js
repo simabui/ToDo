@@ -1,4 +1,4 @@
-import { buildTemplate } from "./template";
+import template from "./template";
 import { obj } from "./createNote";
 
 export function saveToLocal() {
@@ -18,7 +18,7 @@ function renderFromLocal() {
     if (collection === null) return;
     // render from local
     const tempCollection = collection.reduce(
-      (acc, item) => acc + buildTemplate(item),
+      (acc, item) => acc + template(item),
       ""
     );
     grid.insertAdjacentHTML("beforeend", tempCollection);

@@ -1,5 +1,5 @@
 //template
-export function buildTemplate(obj) {
+export default function(obj) {
   return `
   <div class="note" data-status="${obj.status}" data-id="${obj.id}">
     <h2 class="note__title">${obj.title}</h2>

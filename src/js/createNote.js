@@ -1,9 +1,10 @@
 import { refs } from "./index";
-import { buildTemplate } from "./template";
+import template from "./template";
 import { saveToLocal, saveLocalToArr } from "./local";
 
 export const obj = {
   collection: [],
+  editObj: {},
 
   pushtoCollection(obj) {
     this.collection.push(obj);
@@ -20,7 +21,7 @@ export const obj = {
     };
 
     this.pushtoCollection(noteList);
-    const item = buildTemplate(noteList);
+    const item = template(noteList);
     this.insertTemplate(item);
     saveToLocal();
   },
@@ -29,7 +30,7 @@ export const obj = {
     refs.list.insertAdjacentHTML("beforeend", element);
   },
 
-  //remove button
+  //remove
   remove(id) {
     this.collection = this.collection.filter(note => note.id !== id);
     saveToLocal();
@@ -41,10 +42,28 @@ export const obj = {
     obj.status = "done";
     saveToLocal();
   },
-
+  //Open edit overlay
+  edit(id) {
+    this.editObj = this.collection.find(note => note.id === id);
+    refs.edit.classList.add("is-open");
+    const title = refs.edit.children[0].elements.title;
+    const desc = refs.edit.children[0].elements.description;
+    const prio = refs.edit.children[0].elements.priority;
+    title.value = this.editObj.title;
+    desc.value = this.editObj.desc;
+    prio.value = this.editObj.prio;
+  },
+  // Render Edit
+  renderEdit(title, desc, prio) {
+    this.editObj.title = title;
+    this.editObj.desc = desc;
+    this.editObj.prio = prio;
+    this.renderFromTemplate(this.collection);
+    saveToLocal();
+  },
   // filtered arr and render
   renderFromTemplate(arr) {
-    const newItems = arr.reduce((acc, item) => acc + buildTemplate(item), "");
+    const newItems = arr.reduce((acc, item) => acc + template(item), "");
     refs.list.innerHTML = "";
     this.insertTemplate(newItems);
   },

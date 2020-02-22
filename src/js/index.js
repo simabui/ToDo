@@ -5,9 +5,13 @@ import { obj } from "./createNote";
 export const refs = {
   inputSearch: document.querySelector("#task-search"),
   create: document.querySelector("#button-create"),
-  overlay: document.querySelector(".overlay"),
+  form: document.querySelector("#create-form"),
+  edit: document.querySelector("#edit-form"),
   cancel: document.querySelector("#cancel"),
+  cancelEdit: document.querySelector("#cancel-edit"),
   save: document.querySelector("#save"),
+  saveEdit: document.querySelector("#save-edit"),
+  cancelEdit: document.querySelector("#cancel-edit"),
   createForm: document.querySelector(".create-form"),
   list: document.querySelector("#task-list"),
   taskStatus: document.querySelector("#task-status"),
@@ -15,8 +19,10 @@ export const refs = {
 };
 
 refs.create.addEventListener("click", handleOverlay);
-refs.overlay.addEventListener("click", handleCancel);
+refs.form.addEventListener("click", handleCancel);
 refs.save.addEventListener("click", handleCreate);
+refs.saveEdit.addEventListener("click", handleEdit);
+refs.cancelEdit.addEventListener("click", handleCloseEdit);
 refs.list.addEventListener("click", handleOptions);
 refs.inputSearch.addEventListener("input", handleInput);
 refs.taskStatus.addEventListener("change", handleStatus);
@@ -24,7 +30,7 @@ refs.taskPrio.addEventListener("change", handlePrio);
 
 function handleOverlay(e) {
   e.preventDefault();
-  refs.overlay.classList.add("is-open");
+  refs.form.classList.add("is-open");
 }
 
 //cancel button
@@ -37,7 +43,7 @@ function handleCancel(e) {
 }
 
 function closeOverlay() {
-  refs.overlay.classList.remove("is-open");
+  refs.form.classList.remove("is-open");
 }
 
 //create button
@@ -58,6 +64,20 @@ function handleCreate(e) {
   closeOverlay();
 }
 
+// Create Edit
+function handleEdit(e) {
+  e.preventDefault();
+  const input = refs.edit.children[0].elements.title.value;
+  const description = refs.edit.children[0].elements.description.value;
+  const priority = refs.edit.children[0].priority.value;
+  obj.renderEdit(input, description, priority);
+  handleCloseEdit(e);
+}
+// Close Edit
+function handleCloseEdit(e) {
+  e.preventDefault();
+  refs.edit.classList.remove("is-open");
+}
 // set option
 function handleOptions(e) {
   const parent = e.target.closest(".note");
@@ -76,13 +96,12 @@ function handleOptions(e) {
   }
 
   if (dataType === "edit") {
-    handleOverlay(e);
-    deleteItem(parent);
+    editItem(parent);
   }
 }
 
 function changeStatus(node) {
-  const id = Number(node.dataset.id);
+  const id = +node.dataset.id;
   obj.setStatus(id);
   // set background-color to done
   node.dataset.status = "done";
@@ -90,10 +109,14 @@ function changeStatus(node) {
 
 function deleteItem(node) {
   node.remove();
-  const id = Number(node.dataset.id);
+  const id = +node.dataset.id;
   obj.remove(id);
 }
 
+function editItem(node) {
+  const id = +node.dataset.id;
+  obj.edit(id);
+}
 //filter form
 function handleInput() {
   const title = refs.inputSearch.value;
