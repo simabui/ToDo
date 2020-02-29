@@ -1,13 +1,13 @@
 .overlay#create-form
   form.create-form(autocomplete="off")
     p.create-form__title Title:
-    input(class="create-form__input" type="text" name="title" placeholder="title")
+    input(class="create-form__input" type="text" name="title" placeholder="title" required)
     p.create-form__title Description:
-    textarea(class="create-form__text" name="description" rows="5")
+    textarea(class="create-form__text" name="description" rows="5" required)
     p.create-form__title Priority:
     select(class="create-form__select" name="priority")
       option(value="high") High
       option(value="normal") Normal
       option(value="low") Low
     button(class="create-form__cancel" id="cancel") Cancel
-    button(class="create-form__save" id="save") Save
+    button(class="create-form__save" id="save" type="submit") Save

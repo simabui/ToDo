@@ -41,7 +41,7 @@ function handleCancel(e) {
   }
   return false;
 }
-
+document.body.style.overflow = "hidden";
 function closeOverlay() {
   refs.form.classList.remove("is-open");
 }
@@ -49,28 +49,25 @@ function closeOverlay() {
 //create button
 function handleCreate(e) {
   e.preventDefault();
-  const input = refs.createForm.elements.title.value;
-  const description = refs.createForm.elements.description.value;
-  const priority = refs.createForm.priority.value;
 
-  if (input.length === 0 || description.length === 0) {
+  const { title, description, priority } = refs.createForm.elements;
+  if (title.length === 0 || description.length === 0) {
     alert("Fill title and description before Save");
     return;
   }
   //render
-  obj.createTemplate(input, description, priority);
+  obj.createTemplate(title.value, description.value, priority.value);
   //reset inputs
   refs.createForm.reset();
   closeOverlay();
 }
 
-// Create Edit
+// Makes Edit
 function handleEdit(e) {
   e.preventDefault();
-  const input = refs.edit.children[0].elements.title.value;
-  const description = refs.edit.children[0].elements.description.value;
-  const priority = refs.edit.children[0].priority.value;
-  obj.renderEdit(input, description, priority);
+  lockScreen();
+  const { title, description, priority } = refs.edit.children[0].elements;
+  obj.renderEdit(title.value, description.value, priority.value);
   handleCloseEdit(e);
 }
 // Close Edit
@@ -84,7 +81,10 @@ function handleOptions(e) {
   const dataType = e.target.dataset.type;
   //show add options
   if (e.target.nodeName === "SPAN") {
-    parent.querySelector(".note__additional").classList.toggle("note-open");
+    parent.querySelector(".note__additional").classList.add("note-open");
+  } else if (e.target !== e.currentTarget) {
+    console.log("test");
+    parent.querySelector(".note__additional").classList.remove("note-open");
   }
 
   if (dataType === "done") {
@@ -131,4 +131,12 @@ function handleStatus() {
 function handlePrio() {
   const prio = refs.taskPrio.value;
   obj.filterPrio(prio);
+}
+
+function lockScreen() {
+  return (document.body.style.overflow = "hidden");
+}
+
+function unlockScreen() {
+  document.body.style.overflow = "";
 }

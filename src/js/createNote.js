@@ -46,12 +46,11 @@ export const obj = {
   edit(id) {
     this.editObj = this.collection.find(note => note.id === id);
     refs.edit.classList.add("is-open");
-    const title = refs.edit.children[0].elements.title;
-    const desc = refs.edit.children[0].elements.description;
-    const prio = refs.edit.children[0].elements.priority;
+    const { title, description, priority } = refs.edit.children[0].elements;
+    //display note data in overlay
     title.value = this.editObj.title;
-    desc.value = this.editObj.desc;
-    prio.value = this.editObj.prio;
+    description.value = this.editObj.desc;
+    priority.value = this.editObj.prio;
   },
   // Render Edit
   renderEdit(title, desc, prio) {
