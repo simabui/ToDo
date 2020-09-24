@@ -1,17 +1,23 @@
 .todo {
   margin-top: 10px;
-  display: flex;
+  @include row-flex();
   justify-content: space-around;
   font-family: "Raleway", sans-serif;
   font-weight: 400;
 
   &__search {
+    @include col();
+    @include size-md(3);
+    @include size-xs(12);
     border: 1px solid #000;
     padding: 10px;
     outline: none;
   }
 
   &__select {
+    @include col();
+    @include size-md(3);
+    @include size-xs(12);
     width: 174px;
     border-radius: unset;
     background-color: transparent;
@@ -21,8 +27,18 @@
   }
 
   &__button {
+    @include col();
+    @include size-md(3);
+    @include size-xs(12);
     background-color: transparent;
     padding: 0 20px;
     border-color: #000;
+  }
+
+  &__search,
+  &__select,
+  &__button {
+    @include xs(margin-top, 10px);
+    @include xs(padding, 5px);
   }
 }

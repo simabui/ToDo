@@ -1,17 +1,22 @@
 .task-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  @include row-flex();
+  // @include md(height, auto);
   padding-top: 20px;
+  height: 100vh;
+  overflow: scroll;
 }
 .note {
+  @include col();
+  @include size(4);
+  @include size-md(6);
+  @include size-xs(12);
   display: block;
-  width: 300px;
   border: 1px solid #000;
   border-radius: 5px;
-  padding: 20px;
+  padding: 0 20px;
   position: relative;
   margin-bottom: 10px;
+  height: 250px;
 
   &[data-status="done"] {
     background-color: #6dc46dac;
@@ -37,6 +42,11 @@
 
   &__title {
     font-weight: 700;
+  }
+
+  &__description {
+    overflow: scroll;
+    height: 100px;
   }
 
   &__description,
